@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Restaurants.Domain.Constants;
 using Restaurants.Domain.Entities;
 using Restaurants.Infrastructure.Database;
 
@@ -12,6 +15,10 @@ namespace Restaurants.Infrastructure.Seeders
     {
         public async Task Seed()
         {
+            if (dbContext.Database.GetPendingMigrations().Any())
+            {
+                await dbContext.Database.MigrateAsync();
+            }
             if (await dbContext.Database.CanConnectAsync())
             {
                 if (!dbContext.Restaurants.Any())
@@ -20,14 +27,47 @@ namespace Restaurants.Infrastructure.Seeders
                     dbContext.Restaurants.AddRange(restaurants);
                     await dbContext.SaveChangesAsync();
                 }
+
+                if (!dbContext.Roles.Any())
+                {
+                    var roles = GetRoles();
+                    dbContext.Roles.AddRange(roles);
+                    await dbContext.SaveChangesAsync(); 
+                }
             }
+        }
+
+        private IEnumerable<IdentityRole> GetRoles()
+        {
+            List<IdentityRole> roles =
+                [
+                    new (UserRoles.User){
+                        NormalizedName = UserRoles.User.ToUpper()
+                    },
+                    new (UserRoles.Owner){
+                        NormalizedName = UserRoles.Owner.ToUpper()
+                    },
+                    new (UserRoles.Admin){
+                        NormalizedName = UserRoles.Admin.ToUpper()
+                    }
+                ];
+
+            return roles;
+
+
         }
 
         private IEnumerable<Restaurant> GetRestaurants()
         {
+            User owner = new User()
+            {
+                Email = "seed-user@test.com"
+            };
+
             List<Restaurant> restaurants = [
             new()
             {
+                Owner = owner,
                 Name = "KFC",
                 Category = "Fast Food",
                 Description =
@@ -60,6 +100,7 @@ namespace Restaurants.Infrastructure.Seeders
             },
             new ()
             {
+                Owner = owner,
                 Name = "McDonald",
                 Category = "Fast Food",
                 Description =

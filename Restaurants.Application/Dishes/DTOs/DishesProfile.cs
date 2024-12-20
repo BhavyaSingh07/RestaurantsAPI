@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Restaurants.Application.Dishes.Commands.CreateDish;
 using Restaurants.Domain.Entities;
 
 namespace Restaurants.Application.Dishes.DTOs
@@ -12,6 +13,7 @@ namespace Restaurants.Application.Dishes.DTOs
     {
         public DishesProfile()
         {
+            CreateMap<CreateDishCommand, Dish>().ReverseMap();
             CreateMap<Dish, DishDto>().ReverseMap();
         }
     }

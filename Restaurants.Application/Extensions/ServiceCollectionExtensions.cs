@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Restaurants.Application.Restaurants;
 using Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
+using Restaurants.Application.Users;
 using Restaurants.Domain.Respositories;
 
 namespace Restaurants.Application.Extensions
@@ -21,6 +22,9 @@ namespace Restaurants.Application.Extensions
 
 
             services.AddAutoMapper(typeof(ServiceCollectionExtensions).Assembly);
+
+            services.AddScoped<IUserContext, UserContext>();
+            services.AddHttpContextAccessor();
         }
     }
 }

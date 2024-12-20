@@ -9,3 +9,5 @@ C:\Restaurants\Restaurants\Restaurants.Domain\obj\Debug\net8.0\Restaurants.Domai
 C:\Restaurants\Restaurants\Restaurants.Domain\obj\Debug\net8.0\refint\Restaurants.Domain.dll
 C:\Restaurants\Restaurants\Restaurants.Domain\obj\Debug\net8.0\Restaurants.Domain.pdb
 C:\Restaurants\Restaurants\Restaurants.Domain\obj\Debug\net8.0\ref\Restaurants.Domain.dll
+C:\Restaurants\Restaurants\Restaurants.Domain\obj\Debug\net8.0\Restaurants.Domain.sourcelink.json
+C:\Restaurants\Restaurants\Restaurants.Domain\obj\Debug\net8.0\Restaurants.Domain.csproj.AssemblyReference.cache
